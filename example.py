@@ -1,6 +1,6 @@
 import os
 
-from sympound.sympound import sympound
+from sympound import sympound
 
 import platform
 distancefun = None
