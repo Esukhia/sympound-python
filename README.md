@@ -22,7 +22,9 @@ The first step is to create an `sympound` object, the constructor takes two main
 
 Then some dictionaries can be added through the `load_dictionary` function, typically taking a file path as argument. The format of the dictionary is typically either a list of words (one per line), or a list of word and frequency (separated by a space). See [example-dict2.txt](example-dict2.txt) for an example.
 
-A lot of computations happen at this stage and adding a large dictionary can easily take more than one minute, so we provide two functions to save the analyzed ductionaries as a pickle: `save_pickle` and `load_pickle`, both taking a file path as argument. Note that the pickled is gzipped.
+You can also add entries directly with `create_dictionary_entry(key, count)` where `key` is the valid string and `count` the frequency associated with it. This is the advised method to use if your data is not in a simple format like the previously described dictionary.
+
+A lot of computations happen at this stage and adding a large number of entries can easily take more than one minute, so we provide two functions to save the analyzed ductionaries as a pickle: `save_pickle` and `load_pickle`, both taking a file path as argument. Note that the pickled is gzipped.
 
 ### Lookup
 
