@@ -121,7 +121,7 @@ class sympound(object):
                 return False
         return True
 
-    def load_dictionary(self, filepath=None, dict_tokens=None, term_index=0, count_index=0):
+    def load_dictionary(self, filepath=None, dict_tokens=None, term_index=0, count_index=1):
         with open(filepath, 'r', encoding='utf-8') as f:
             for line in f:
                 tokens = line.split()
