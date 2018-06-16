@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
-"""Main module."""
 import os
+import sys
 from copy import copy
 import math
 import time

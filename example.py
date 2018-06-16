@@ -15,17 +15,16 @@ else:
 ssc = sympound(distancefun=distancefun, maxDictionaryEditDistance=3)
 
 def test():
-    ssc.load_dictionary(os.path.abspath("example-dict1.txt"))
+    ssc.create_dictionary_entry("bonjour", 1)
     print(ssc.lookup_compound(input_string="bonjur bonjour", edit_distance_max=2))
     print()
     print(ssc.lookup_compound(input_string="bonjuor", edit_distance_max=2))
     print()
-    print(ssc.load_dictionary("example-dict2.txt", term_index=0, count_index=1))
+    print(ssc.load_dictionary("example-dict.txt", term_index=0, count_index=1))
     print(ssc.lookup_compound(input_string="bonjur hallo", edit_distance_max=2))
     print()
-    ssc.load_dictionary(os.path.abspath("tibetan.txt"))
-    ssc.save_pickle("tibetan.pickle")
-    #ssc.load_pickle("tibetan.pickle")
+    ssc.save_pickle("symspell.pickle")
+    #ssc.load_pickle("symspell.pickle")
     print(ssc.lookup_compound(input_string="བཀྲ་ཤས་བད་ལེགས། ལ་མ་", edit_distance_max=3))
 
 test()

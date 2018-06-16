@@ -20,7 +20,7 @@ The first step is to create an `sympound` object, the constructor takes two main
 
 ### adding dictionaries
 
-Then some dictionaries can be added through the `load_dictionary` function, typically taking a file path as argument. The format of the dictionary is typically either a list of words (one per line), or a list of word and frequency (separated by a space). See [example-dict2.txt](example-dict2.txt) for an example.
+Then some dictionaries can be added through the `load_dictionary` function, typically taking a file path as argument. The format of the dictionary is typically either a list of words (one per line), or a list of word and frequency (separated by a space). See [example-dict.txt](example-dict.txt) for an example.
 
 You can also add entries directly with `create_dictionary_entry(key, count)` where `key` is the valid string and `count` the frequency associated with it. This is the advised method to use if your data is not in a simple format like the previously described dictionary.
 
