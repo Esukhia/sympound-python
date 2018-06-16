@@ -30,20 +30,6 @@ class SuggestItem(object):
     def __str__(self):
         return self.term + ":" + str(self.count) + ":" + str(self.distance)
 
-    def getCount(self):
-        return self.count
-
-    def get_hash_code(self):
-        return hash(self.term)
-
-    def shallow_copy(self):
-        return copy(self)
-
-class DictionaryItem:
-    def __init__(self):
-        self.suggestions = []
-        self.count = 0
-
 class sympound(object):
     def __init__(self, distancefun, initialCapacity=16, maxDictionaryEditDistance=2, prefixLength=7, countThreshold=1, compactLevel=5):
         self.distancefun = distancefun
@@ -271,7 +257,7 @@ class sympound(object):
                                     suggestions = []
                                 break
                             elif verbosity == 0:
-                                if distance < edit_distance_max2 or suggestion_count > suggestions[0].getCount():
+                                if distance < edit_distance_max2 or suggestion_count > suggestions[0].count:
                                     edit_distance_max2 = distance
                                     suggestions[0] = si
                                 continue
