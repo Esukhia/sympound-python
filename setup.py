@@ -20,6 +20,7 @@ def read(fname):
                 f.write(rst)
             return rst
         except (IOError, ImportError):
+            print("Error: could not convert "+fname+" to rst")
             return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
