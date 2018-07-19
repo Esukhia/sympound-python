@@ -222,7 +222,7 @@ class sympound(object):
                             continue
                         hashset2.add(suggestion)
                     elif suggestion_len == 1:
-                        if input_string.find(suggestion[0] < 0):
+                        if input_string.find(suggestion[0]) < 0:
                             distance = input_len
                         else:
                             distance = input_len -1
