@@ -6,6 +6,7 @@ import time
 import hashlib
 import pickle
 import gzip
+from collections import defaultdict
 
 class SuggestItem(object):
     def __init__(self, term="", distance = 0, count = 0):
@@ -29,6 +30,7 @@ class SuggestItem(object):
         return self.term + ":" + str(self.count) + ":" + str(self.distance)
 
 class sympound(object):
+    # initialCapacity and compactLevel are not doing anything at the moment, they're here to mimic the C# constructor
     def __init__(self, distancefun, initialCapacity=16, maxDictionaryEditDistance=2, prefixLength=7, countThreshold=1, compactLevel=5):
         self.distancefun = distancefun
         self.initialCapacity = initialCapacity
@@ -36,7 +38,6 @@ class sympound(object):
         self.prefixLength = prefixLength
         self.countThreshold = countThreshold
         self.compactLevel = min(compactLevel, 16)
-        self.enable_compound_check = True
         # false: assumes input string as single term, no compound splitting / decompounding
         # true:  supports compound splitting / decompounding with three cases:
         # 1. mistakenly inserted space into a correct word led to two incorrect terms
@@ -53,7 +54,7 @@ class sympound(object):
         # A Dictionary with fixed value type (int) requires less memory than a Dictionary with variable value type (object)
         # To support two types with a Dictionary with fixed type (int), positive number point to one list of type 1 (string), and negative numbers point to a secondary list of type 2 (dictionaryEntry)
         self.dictionary = {}
-        self.deletes = {}
+        self.deletes = defaultdict(list)
         self.words = {}
         self.belowThresholdWords = {}
         self.max_length = 0
@@ -65,14 +66,14 @@ class sympound(object):
             count = 0
         count_previous = -1
         if self.countThreshold > 1 and key in self.belowThresholdWords:
-            count = (sys.maxsize - count_previous > count) and count_previous+count or sys.maxsize
+            count = count_previous+count if (sys.maxsize - count_previous > count) else sys.maxsize
             if count >= self.countThreshold:
                 self.belowThresholdWords.pop(key)
             else:
                 self.belowThresholdWords[key] = count
                 return False
         elif key in self.words:
-            count = (sys.maxsize - count_previous > count) and count_previous+count or sys.maxsize
+            count = count_previous+count if (sys.maxsize - count_previous > count) else sys.maxsize
             self.words[key] = count
             return False
         elif count < self.countThreshold:
@@ -84,10 +85,7 @@ class sympound(object):
         edits = self.edits_prefix(key)
         for delete in edits:
             deleteHash = self.get_string_hash(delete)
-            if deleteHash in self.deletes:
-                self.deletes[deleteHash].append(key)
-            else:
-                self.deletes[deleteHash] = [key]
+            self.deletes[deleteHash].append(key)
         return True
 
     def get_string_hash(self, s):
@@ -283,10 +281,8 @@ class sympound(object):
 
         last_combi = False
 
-        for i in range(0, len(term_list_1)):
-            suggestions_previous_term = []
-            for k in range(0, len(suggestions)):
-                suggestions_previous_term.append(copy(suggestions[k]))
+        for i in range(len(term_list_1)):
+            suggestions_previous_term = [copy(suggestion) for suggestion in suggestions]
             suggestions = self.lookup(term_list_1[i], 0, edit_distance_max)
             if i > 0 and not last_combi:
                 suggestions_combi = self.lookup(term_list_1[i-1] + term_list_1[i], 0, edit_distance_max)
