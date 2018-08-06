@@ -66,7 +66,7 @@ class sympound(object):
         count_previous = -1
         if self.countThreshold > 1 and key in self.belowThresholdWords:
             count = (sys.maxsize - count_previous > count) and count_previous+count or sys.maxsize
-            if count >= countThreshold:
+            if count >= self.countThreshold:
                 self.belowThresholdWords.pop(key)
             else:
                 self.belowThresholdWords[key] = count
