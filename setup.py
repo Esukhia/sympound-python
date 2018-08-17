@@ -6,11 +6,9 @@ from __future__ import print_function
 import os
 import sys
 from setuptools import setup, find_packages
-import pypandoc
 
 def read(fname):
-    rst = pypandoc.convert(os.path.join(os.path.dirname(__file__), fname), 'rst')
-    return rst
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
     name="sympound",
@@ -23,6 +21,7 @@ setup(
     url="https://github.com/Esukhia/sympound-python",
     packages=find_packages(),
     long_description=read('README.md'),
+    long_description_content_type="text/markdown",
     project_urls={
         'Source': 'https://github.com/Esukhia/sympound-python',
         'Tracker': 'https://github.com/Esukhia/sympound-python/issues',

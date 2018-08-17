@@ -37,6 +37,15 @@ The function returns a sorted list of `SuggestItem`s, containing three fields:
 - `distance` being the distance with the original string
 - `count` being the frequency if given in the dictionary
 
+# Maintainance
+
+Upload on pip:
+
+```
+python setup.py sdist
+twine upload dist/*
+```
+
 # Copyright
 
 The code is Copyright Esukhia, 2018, and is distributed under the [MIT License](LICENSE).
