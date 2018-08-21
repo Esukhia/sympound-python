@@ -24,7 +24,7 @@ class SuggestItem(object):
         """ a simple, default, comparison """
         if self.distance != si2.distance:
             return self.distance > si2.distance
-        return self.count > si2.count
+        return self.count < si2.count
 
     def __str__(self):
         return self.term + ":" + str(self.count) + ":" + str(self.distance)
