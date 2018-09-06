@@ -77,7 +77,7 @@ class sympound(object):
             self.words[key] = count
             return False
         elif count < self.countThreshold:
-            belowThresholdWords[key] = count
+            self.belowThresholdWords[key] = count
             return False
         self.words[key] = count
         if len(key) > self.max_length:
