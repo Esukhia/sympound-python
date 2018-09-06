@@ -91,13 +91,13 @@ class sympound(object):
     def get_string_hash(self, s):
         return hashlib.md5(s.encode('utf-8')).hexdigest()
 
-    def save_pickle(self, filename):
+    def save_pickle(self, filename, compressed=True):
         pickle_data = {"deletes": self.deletes, "words": self.words, "max_length": self.max_length}
-        with gzip.open(filename, "wb") as f:
+        with (gzip.open if compressed else open)(filename, "wb") as f:
             pickle.dump(pickle_data, f)
 
-    def load_pickle(self, filename):
-        with gzip.open(filename, "rb") as f:
+    def load_pickle(self, filename, compressed=True):
+        with (gzip.open if compressed else open)(filename, "rb") as f:
             pickle_data = pickle.load(f)
         self.deletes = pickle_data["deletes"]
         self.words = pickle_data["words"]
