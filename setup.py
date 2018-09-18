@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name="sympound",
-    version="0.5.0",  #edit version in __init__.py
+    version="0.6.0",  #edit version in __init__.py
     author="Esukhia development team",
     author_email="esukhiadev@gmail.com",
     description="Python implementation of SymSpell Compound",
